@@ -11,12 +11,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.bytebybyte.google.geocoding.service.IGeocodeRequest;
 import com.bytebybyte.google.geocoding.service.IGeocodingService;
 import com.bytebybyte.google.geocoding.service.IResponse;
+import com.bytebybyte.google.geocoding.service.IReverseGeocodeRequest;
 import com.bytebybyte.google.geocoding.service.response.Response;
 
 public class StandardGeocodingService implements IGeocodingService {
 
-	protected static final Logger logger = LoggerFactory
-			.getLogger(StandardGeocodingService.class);
+	protected static final Logger logger = LoggerFactory.getLogger(StandardGeocodingService.class);
 
 	protected static final String URL = "https://maps.googleapis.com/maps/api/geocode/{output}";
 
@@ -35,8 +35,20 @@ public class StandardGeocodingService implements IGeocodingService {
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
 
-		for (Map.Entry<String, String> entry : request.getParameters()
-				.entrySet())
+		for (Map.Entry<String, String> entry : request.getParameters().entrySet())
+			builder.queryParam(entry.getKey(), entry.getValue());
+
+		URI uri = builder.buildAndExpand(request.getParameters()).toUri();
+
+		return restTemplate.getForObject(uri, Response.class);
+	}
+
+	@Override
+	public IResponse reverseGeocode(IReverseGeocodeRequest request) {
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+
+		for (Map.Entry<String, String> entry : request.getParameters().entrySet())
 			builder.queryParam(entry.getKey(), entry.getValue());
 
 		URI uri = builder.buildAndExpand(request.getParameters()).toUri();

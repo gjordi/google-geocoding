@@ -1,8 +1,7 @@
 package com.bytebybyte.google.geocoding.service.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public enum LocationType {
 
 	// indicates that the returned result is a precise geocode for which we have
@@ -20,5 +19,17 @@ public enum LocationType {
 	GEOMETRIC_CENTER,
 
 	// indicates that the returned result is approximate.
-	APPROXIMATE
+	APPROXIMATE,
+
+	// a catch all for cases where the enum could not be identified.
+	UNKNOWN;
+
+	@JsonCreator
+	public static LocationType newInstance(String value) {
+		try {
+			return LocationType.valueOf(value);
+		} catch (IllegalArgumentException e) {
+			return LocationType.UNKNOWN;
+		}
+	}
 }

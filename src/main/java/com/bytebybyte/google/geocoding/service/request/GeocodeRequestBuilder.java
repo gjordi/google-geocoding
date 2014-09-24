@@ -100,8 +100,7 @@ public class GeocodeRequestBuilder {
 	 */
 	public GeocodeRequestBuilder componenets(Map<String, String> components) {
 		StringBuffer filters = new StringBuffer();
-		for (Iterator<Map.Entry<String, String>> iterator = components
-				.entrySet().iterator(); iterator.hasNext();) {
+		for (Iterator<Map.Entry<String, String>> iterator = components.entrySet().iterator(); iterator.hasNext();) {
 			Map.Entry<String, String> entry = iterator.next();
 			filters.append(entry.getKey() + ":" + entry.getValue());
 			if (iterator.hasNext())

@@ -4,4 +4,5 @@ public interface IGeocodingService {
 
 	IResponse geocode(IGeocodeRequest request);
 
+	IResponse reverseGeocode(IReverseGeocodeRequest request);
 }

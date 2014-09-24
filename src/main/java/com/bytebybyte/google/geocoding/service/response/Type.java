@@ -1,10 +1,8 @@
 package com.bytebybyte.google.geocoding.service.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public enum Type {
 
 	//
@@ -85,7 +83,7 @@ public enum Type {
 
 	// postal_code indicates a postal code as used to address postal mail within
 	// the country.
-	POSTAL_CODE,
+	POSTAL_CODE, POSTAL_CODE_PREFIX,
 
 	// natural_feature indicates a prominent natural feature.
 	NATURAL_FEATURE,
@@ -132,7 +130,10 @@ public enum Type {
 
 	// bus_station, train_station and transit_station indicate the location of a
 	// bus, train or public transit stop.
-	BUS_STATION;
+	BUS_STATION, TRAIN_STATION, TRANSIT_STATION,
+
+	// a catch all for cases where the enum could not be identified.
+	UNKNOWN;
 
 	@JsonValue
 	public String getValue() {
@@ -141,6 +142,10 @@ public enum Type {
 
 	@JsonCreator
 	public static Type newInstance(String value) {
-		return Type.valueOf(value.toUpperCase());
+		try {
+			return Type.valueOf(value.toUpperCase());
+		} catch (IllegalArgumentException e) {
+			return Type.UNKNOWN;
+		}
 	}
 }

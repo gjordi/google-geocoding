@@ -1,8 +1,7 @@
 package com.bytebybyte.google.geocoding.service.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public enum Status {
 
 	// indicates that no errors occurred; the address was successfully parsed
@@ -25,6 +24,15 @@ public enum Status {
 
 	// indicates that the request could not be processed due to a server error.
 	// The request may succeed if you try again.
-	UNKNOWN_ERROR
+	UNKNOWN_ERROR;
+
+	@JsonCreator
+	public static Status newInstance(String value) {
+		try {
+			return Status.valueOf(value);
+		} catch (IllegalArgumentException e) {
+			return Status.UNKNOWN_ERROR;
+		}
+	}
 
 }

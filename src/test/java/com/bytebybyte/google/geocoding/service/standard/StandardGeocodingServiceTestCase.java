@@ -7,6 +7,8 @@ import org.junit.Test;
 import com.bytebybyte.google.geocoding.service.IResponse;
 import com.bytebybyte.google.geocoding.service.request.GeocodeRequest;
 import com.bytebybyte.google.geocoding.service.request.GeocodeRequestBuilder;
+import com.bytebybyte.google.geocoding.service.request.ReverseGeocodeRequest;
+import com.bytebybyte.google.geocoding.service.request.ReverseGeocodeRequestBuilder;
 import com.bytebybyte.google.geocoding.service.response.Status;
 
 public class StandardGeocodingServiceTestCase {
@@ -22,8 +24,7 @@ public class StandardGeocodingServiceTestCase {
 	public void testGeocode_CalgaryAddress() throws Exception {
 		// setup
 		GeocodeRequestBuilder builder = new GeocodeRequestBuilder();
-		GeocodeRequest request = builder.output("json")
-				.address("1015 120 Ave SE, Calgary, AB T2J 2L1").build();
+		GeocodeRequest request = builder.output("json").address("1015 120 Ave SE, Calgary, AB T2J 2L1").build();
 
 		// execute
 		IResponse response = service.geocode(request);
@@ -34,6 +35,22 @@ public class StandardGeocodingServiceTestCase {
 		Assert.assertEquals(Status.OK, response.getStatus());
 		Assert.assertNotNull(response.getResults());
 		Assert.assertEquals(1, response.getResults().length);
+	}
+
+	@Test
+	public void testReverseGeocode_CalgaryAddress() throws Exception {
+		ReverseGeocodeRequestBuilder builder = new ReverseGeocodeRequestBuilder();
+		ReverseGeocodeRequest request = builder.output("json").latlng(50.944531, -114.040928).build();
+
+		// execute
+		IResponse response = service.reverseGeocode(request);
+
+		// verify
+		Assert.assertNotNull(response);
+		Assert.assertNotNull(response.getStatus());
+		Assert.assertEquals(Status.OK, response.getStatus());
+		Assert.assertNotNull(response.getResults());
+		Assert.assertEquals(10, response.getResults().length);
 	}
 
 }

@@ -92,7 +92,7 @@ public class ReverseGeocodeRequestBuilder {
 	 * of the types. Note: This parameter is available only for requests that 
 	 * include an API key or a client ID.
 	 * 
-	 * @param resultType
+	 * @param types
 	 * @return ReverseGeocodeRequestBuilder
 	 */
 	public ReverseGeocodeRequestBuilder resultType(Type[] types) {

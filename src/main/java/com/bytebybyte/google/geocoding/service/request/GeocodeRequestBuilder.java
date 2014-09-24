@@ -59,7 +59,8 @@ public class GeocodeRequestBuilder {
 	 * @return GeocodeRequestBuilder
 	 */
 	public GeocodeRequestBuilder address(String address) {
-		parameters.put("address", address);
+		parameters.put("address", address != null ? address.replace(' ', '+')
+				: address);
 		return this;
 	}
 
@@ -100,9 +101,11 @@ public class GeocodeRequestBuilder {
 	 */
 	public GeocodeRequestBuilder componenets(Map<String, String> components) {
 		StringBuffer filters = new StringBuffer();
-		for (Iterator<Map.Entry<String, String>> iterator = components.entrySet().iterator(); iterator.hasNext();) {
+		for (Iterator<Map.Entry<String, String>> iterator = components
+				.entrySet().iterator(); iterator.hasNext();) {
 			Map.Entry<String, String> entry = iterator.next();
-			filters.append(entry.getKey() + ":" + entry.getValue());
+			filters.append(entry.getKey() + ":" + entry.getValue() != null ? entry
+					.getValue().replace(' ', '+') : entry.getValue());
 			if (iterator.hasNext())
 				filters.append("|");
 		}

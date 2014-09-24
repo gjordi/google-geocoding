@@ -4,7 +4,7 @@
 
 	<groupId>com.bytebybyte</groupId>
 	<artifactId>google-geocoding</artifactId>
-	<version>3.0.0</version>
+	<version>3.0.1-SNAPSHOT</version>
 
 	<name>Google Geocoding Service</name>
 	<description>Java API for the Google geocoding service.</description>
@@ -65,7 +65,7 @@
 		<connection>scm:git:git@github.com:gjordi/google-geocoding.git</connection>
 		<developerConnection>scm:git:git@github.com:gjordi/google-geocoding.git</developerConnection>
 		<url>git@github.com:gjordi/google-geocoding.git</url>
-	  <tag>google-geocoding-3.0.0</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<issueManagement>
